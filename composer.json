@@ -1,5 +1,5 @@
 {
-  "name": "qix/php-forms",
+  "name": "qix/forms",
   "description": "A simple Forms library for PHP",
   "version": "0.1.0",
   "keywords": ["forms"],
