@@ -69,11 +69,11 @@ class Control extends Base {
     $error_message = null;
 
     if (!is_scalar($value) && $value !== NULL) {
-			$error_message = T('The %s field was not of the correct type.');
+			$error_message = 'The %s field was not of the correct type.';
     }elseif ($this->required && trim($value) === '') {
-			$error_message = T('The %s field is required.');
+			$error_message = 'The %s field is required.';
 		}elseif ($value && !$this->validate($value)) {
-      $error_message = T('The %s field '.($this->format ?: 'was not valid'));
+      $error_message = 'The %s field '.($this->format ?: 'was not valid');
     }
     
     if ($error_message) {
@@ -107,14 +107,14 @@ class Control extends Base {
 	function check($values) {
     if (!$this->test($values)) return array(); 
 
-    $check = ARR($values, $this->name);
+    $check = $this->getValue($values);
 
     // Do not check empty optional controls
-    if ($this->optional && $check === NULL) {
+    if ($this->optional && $value === NULL) {
       return array();
     }
 
-    if (ends_with($this->name, '[]')) {
+    if (substr($this->name, -2) == '[]') {
       // If it ends with [.*] treat as an array of values
       if (!is_array($check)) {
         return array($this->name => 'The '.strtolower($this->caption ?: ucwords($this->name)).' field must be a list of values');
@@ -126,12 +126,14 @@ class Control extends Base {
         }
       }else{
         foreach ($check as $value) {
-          if ($errors = $this->check_value($value)) return $errors;
+          if ($errors = $this->checkValue($value)) {
+            return $errors;
+          }
         }
         return array();
       }
     }else{
-      return $this->check_value($check);
+      return $this->checkValue($check);
     }
 	}
 

@@ -1,19 +1,8 @@
 {
-  "name": "qix/forms",
-  "description": "A simple Forms library for PHP",
-  "version": "0.1.0",
-  "keywords": ["forms"],
-  "authors": [
-    {
-      "name": "Josh Yudaken",
-      "email": "josh@snapbill.com",
-      "role": "Developer"
-    }
-  ],
-  "autoload": {
-    "psr-0": {
-      "Forms": "src/"
-    }
+  "require": {
+    "qix/forms": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "3.7.*"
   }
 }
-

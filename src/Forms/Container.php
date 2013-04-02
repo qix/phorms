@@ -10,6 +10,7 @@ abstract class Container extends Base {
 
   protected $_prefix = null;
   protected $_fill = null;
+  protected $_check = null;
 
   /***
    * Strip the prefix from given values, returning only matches
@@ -21,6 +22,17 @@ abstract class Container extends Base {
       if (substr($k, 0, $L) === $prefix) {
         $return[substr($k,$L)] = $v;
       }
+    }
+    return $return;
+  }
+
+  /***
+   * Add a prefix to given values
+   **/
+  private static function addPrefix($values, $prefix) {
+    $return = array();
+    foreach ($values as $k=>$v) {
+      $return[$prefix.$k] = $v;
     }
     return $return;
   }
@@ -81,6 +93,41 @@ abstract class Container extends Base {
       return $res;
     }
 	}
+
+	function check($data) {
+    if (!$this->test($data)) {
+      return [];
+    }
+
+    // Remove data from name group if possible
+    if ($this->name) {
+      if (isset($data[$this->name])) {
+        $data = $data[$this->name];
+      }else{
+        $data = [];
+      }
+    }
+
+		$errors = array();
+		foreach ($this->elements as $element) {
+      $element_errors = $element->check($data);
+      if (!is_array($element_errors)) {
+        throw new Exception('Element control did not return an array of errors');
+      }
+
+      $errors = self::recursiveMerge($errors, $element_errors);
+		}
+		if ($fn = $this->check) {
+			$errors = self::recursiveMerge($errors, $fn($data, $errors));
+		}
+
+    if ($this->prefix) {
+      $errors = self::addPrefix($errors, $this->prefix);
+    }
+
+		return $errors;
+	}
+
   /***
    * Element controls
    **/
