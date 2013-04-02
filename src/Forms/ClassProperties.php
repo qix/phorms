@@ -33,7 +33,10 @@ class ClassProperties {
       $var = "_$var";
       return $this->$var;
     }else{
-      throw new MissingVariableException($var, $this);
+      throw new MissingPropertyException('Unknown class property: '.$var, array(
+        'property' => $var,
+        'object' => $this,
+      ));
     }
   }
 

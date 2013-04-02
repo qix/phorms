@@ -8,6 +8,82 @@ namespace Forms;
 abstract class Container extends Base {
 	protected $elements = array();
 
+  protected $_prefix = null;
+  protected $_fill = null;
+
+  /***
+   * Strip the prefix from given values, returning only matches
+   **/
+  private static function stripPrefix($values, $prefix) {
+    $return = array();
+    $L = strlen($prefix);
+    foreach ($values as $k => $v) {
+      if (substr($k, 0, $L) === $prefix) {
+        $return[substr($k,$L)] = $v;
+      }
+    }
+    return $return;
+  }
+
+  /***
+   * Recursively join data arrays
+   **/
+  static function recursiveMerge(/* ... */) {
+    $merged = array();
+    foreach (func_get_args() as $array) {
+      if (!is_array($array)) throw new Exception('recursiveMerge only accepts array parameters');
+
+      if (!$merged) $merged = $array;
+      else{
+        foreach ($array as $k => $v) {
+          if (is_array($v) && isset($merged[$k]) && is_array($merged[$k])) {
+            $merged[$k] = self::recursiveMerge($merged[$k], $v);
+          }else{
+            $merged[$k] = $v;
+          }
+        }
+      }
+    }
+    return $merged;
+  }
+
+	function data($values=True) {
+
+    // Take values from $_POST if set to True
+    if ($values === True) {
+      $values = $_POST;
+    }
+
+    // First check this objects test
+    if (!$this->test($values)) {
+      return array();
+    }
+
+    // Strip out the prefix if it exists
+    if ($this->prefix) {
+      $values = self::stripPrefix($values, $this->prefix);
+    }
+
+    // Fetch data from all the sub-controls
+		$res = array();
+	  foreach ($this->elements as $element) {
+      $res = self::recursiveMerge($res, $element->data($values));
+	  }
+
+		if ($fn = $this->fill) {
+      $fn($res);
+    }
+
+    // If this form has a name, return all components as a 
+    if ($this->name) {
+      return $this->returnData($res);
+    }else{
+      return $res;
+    }
+	}
+  /***
+   * Element controls
+   **/
   function getElements() {
     return $this->elements;
   }

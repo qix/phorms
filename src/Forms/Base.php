@@ -63,21 +63,28 @@ abstract class Base extends ClassProperties implements Element {
    * Retrieve the value from the posted array
    **/
 	function getValue($post) {
-    $isArray = ends_with($this->name, '[]');
+    $isArray = (substr($this->name, -2) == '[]');
     $underscores = str_replace('.','_',$this->name);
 
     // Pick the first non-null result
     // Use ARR for array behaviour
     $value = $this->_value;
 
-    if ($value === null) $value = ARR($post, $this->name);
+    if ($value === null && array_key_exists($this->name, $post)) {
+      $value = $post[$this->name];
+    }
 
     // Array variables equal to [] are equivalent to null
     //  (checking for underscore name will reset to [])
     if ($isArray && $value === []) $value = null;
 
-    if ($value === null) $value = ARR($post, $underscores);
-    if ($value === null) $value = $this->default;
+    if ($value === null && array_key_exists($underscores, $post)) {
+      $value = $post[$underscores];
+    }
+
+    if ($value === null) {
+      $value = $this->default;
+    }
 
     // Run the transformValue on the values
     if ($isArray) {
