@@ -6,16 +6,20 @@ namespace Forms;
  * Abstract class for Forms components that contain other components
  **/
 abstract class Container extends Base {
-	protected $controls = array();
+	protected $elements = array();
 
-  function getControls() {
-    return $this->controls;
+  function getElements() {
+    return $this->elements;
   }
 
-	function getControl($name) {
-		foreach ($this->controls as $control) {
-			if ($control instanceof Element) {
-        if ($return = $control->getControl($name)) {
+  function addElement(Element $element) {
+    $this->elements[] = $element;
+  }
+
+	function getElement($name) {
+		foreach ($this->elements as $element) {
+			if ($element instanceof Element) {
+        if ($return = $element->getElement($name)) {
           return $return;
         }
 			}
@@ -23,13 +27,13 @@ abstract class Container extends Base {
     return NULL;
 	}
 
-  function queryControls($selector) {
+  function queryElements($selector) {
     $results = [];
 
-		foreach ($this->controls as $control) {
-			if ($control instanceof Element) {
+		foreach ($this->elements as $element) {
+			if ($element instanceof Element) {
         $results = array_append($results,
-          $control->queryControls($selector)
+          $element->queryElements($selector)
         );
 			}
 		}
@@ -37,16 +41,16 @@ abstract class Container extends Base {
     return $results;
   }
 
-	function removeControl($remove) {
-		foreach ($this->controls as $key => $control) {
-			if ($control instanceof Element) {
-        if ($remove == $control) {
-          unset($this->controls[$key]);
-          return $control;
-        }elseif ($return = $control->removeControl($remove)) {
+	function removeElement($remove) {
+		foreach ($this->elements as $key => $element) {
+			if ($element instanceof Element) {
+        if ($remove == $element) {
+          unset($this->elements[$key]);
+          return $element;
+        }elseif ($return = $element->removeElement($remove)) {
           // Remove it if it returned itself
-          if ($control == $return) {
-            unset($this->controls[$key]);
+          if ($element == $return) {
+            unset($this->elements[$key]);
           }
           return $return;
         }
@@ -55,18 +59,18 @@ abstract class Container extends Base {
     return NULL;
 	}
 
-	function replaceControl($replace_control, $with) {
-    if ($replace_control == $this) {
+	function replaceElement($replace_element, $with) {
+    if ($replace_element == $this) {
       throw new Exception('Root group cannot be replaced.');
     }
 
-		foreach ($this->controls as $key => $control) {
-			if ($control instanceof Element) {
-        if ($control == $replace_control) {
-          $this->controls[$key] = $with;
+		foreach ($this->elements as $key => $element) {
+			if ($element instanceof Element) {
+        if ($element == $replace_element) {
+          $this->elements[$key] = $with;
           return True;
         }else{
-          if ($control->replaceControl($replace_control, $with)) {
+          if ($element->replaceElement($replace_element, $with)) {
             return True;
           }
         }

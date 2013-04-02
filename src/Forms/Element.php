@@ -25,28 +25,28 @@ interface Element {
   function errors($errors);
 
   /***
-   * Returns an array of control names
+   * Returns an array of element names
    **/
   function names();
 
   /***
-   * Returns a control given its name
+   * Returns a element given its name
    **/
-  function getControl($name);
+  function getElement($name);
 
   /***
-   * Searches controls by a given selector
+   * Searches element by a given selector
    **/
-  function queryControls($selector);
+  function queryElements($selector);
 
   /***
-   * Removes a control given its name
+   * Removes a element given its name
    **/
-  function removeControl($name);
+  function removeElement($name);
 
   /***
-   * Replaces one control with another
+   * Replaces one element with another
    **/
-  function replaceControl($control, $with);
+  function replaceElement($element, $with);
 }
 

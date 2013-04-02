@@ -133,7 +133,7 @@ abstract class Base extends ClassProperties implements Element {
    *
    * Returns itself if it must be removed
    **/
-  function removeControl($name) {
+  function removeElement($name) {
     if ($this->name === $name) {
       return $this;
     }else{
@@ -144,7 +144,7 @@ abstract class Base extends ClassProperties implements Element {
   /**
    * Replaces a control given an object
    **/
-  function replaceControl($replace_control, $with) {
+  function replaceElement($replace_control, $with) {
     if ($this == $replace_control) {
       throw new Exception('Root control cannot be replaced.');
     }
@@ -156,16 +156,16 @@ abstract class Base extends ClassProperties implements Element {
    *
    * @TODO: This should accept CSS style selectors eventually
    **/
-  function queryControls($selector) {
+  function queryElements($selector) {
     if ($selector == '*' || $this->type == $selector) {
       return [$this];
     }else return [];
   }
 
   /**
-   * Provide default getControl method to return itself
+   * Provide default getElement method to return itself
    **/
-  function getControl($name) {
+  function getElement($name) {
     if ($this->name === $name) {
       return $this;
     }else{

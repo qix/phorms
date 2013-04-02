@@ -18,7 +18,7 @@ class ClassProperties {
       }else{
         // Only accept unknown properties if they are null
         if ($v !== null) {
-          throw new MissingPropertyException('Unknown class property', array(
+          throw new MissingPropertyException('Unknown class property: '.$k, array(
             'property' => $k,
             'value' => $v,
             'object' => $this
