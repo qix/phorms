@@ -18,16 +18,10 @@ class Element_Input extends Control {
   protected $_prefix = '';
   protected $_suffix = '';
 
+  function getAttributes($data, $prefix) {
+    $value = $this->getValue($data);
 
-  function renderWithValue($value, $prefix) {
-
-    $html = '';
-
-    if ($this->prefix) {
-      $html .= Html::encode($this->prefix);
-    }
-
-    $html .= '<input'.Html::attributes(array(
+    return array(
       'name' => $prefix.$this->name,
       'class' => $this->class,
       'size' => $this->size,
@@ -38,12 +32,7 @@ class Element_Input extends Control {
       'readonly' => $this->readonly,
       'autocomplete' => $this->autocomplete,
       'maxlength' => $this->maxlength,
-    )).'>';
+    );
+  }
 
-    if ($this->suffix) {
-      $html .= Html::encode($this->suffix);
-		}
-
-    return $html;
-	}
 }

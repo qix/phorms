@@ -15,15 +15,33 @@ class Renderer extends ClassProperties {
   }
 
   function renderControl($control, $data, $prefix='') {
-    // Print out a label for the control
-    print '<label'.Html::attributes(array(
-      'for' => $control->id,
-    )).'>'.Html::encode($control->caption).'</label>';
 
-    // Render the actual input
-    print $control->render($data, $prefix);
+    if ($control instanceof Element_Input) {
 
-    print "\n";
+      // Print out a label for the control
+      print '<label'.Html::attributes(array(
+        'for' => $control->id,
+      )).'>'.Html::encode($control->caption).'</label>';
+
+
+      if ($control->prefix) {
+        print Html::encode($control->prefix);
+      }
+
+      print '<input'.Html::attributes($control->getAttributes($data, $prefix)).'>';
+
+      if ($control->suffix) {
+        print Html::encode($control->suffix);
+      }
+
+      print "\n";
+    }elseif ($control instanceof Element_Submit) {
+      print '<input'.Html::attributes(array(
+        'type' => 'submit', 'value' => $control->caption,
+      )).'>'."\n";
+    }else{
+      throw new Exception('Unknown control type for renderControl');
+    }
   }
 
   function pushStack(Stack $element, $data=array()) {

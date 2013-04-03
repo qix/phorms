@@ -10,11 +10,6 @@ interface Element {
   function data($post);
 
   /***
-   * Renders the form with the provided data and prefix
-   **/
-  function render($data, $prefix='');
-
-  /***
    * Returns an array of errors for the provided data
    **/
   function check($data);

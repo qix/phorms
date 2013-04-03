@@ -137,13 +137,6 @@ abstract class Control extends Base {
     }
 	}
 
-  function render($data, $prefix='') {
-    $value = $this->getValue($data);
-    return $this->renderWithValue($value, $prefix);
-  }
-
-  abstract function renderWithValue($value, $prefix);
-
   function returnData($value) {
     if ($this->optional && $value === null) {
       return array();
