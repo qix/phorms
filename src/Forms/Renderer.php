@@ -53,7 +53,7 @@ class Renderer extends ClassProperties {
   function beginAction($element, $data=array()) {
     print '<form'.Html::attributes(array(
       'id' => $element->id,
-      'action'=>$element->action,
+      'action'=>$element->url,
       'method'=>$element->method,
       'enctype'=>$element->upload ? 'multipart/form-data' : NULL
     )).'>'."\n";
