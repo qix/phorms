@@ -2,7 +2,7 @@
 
 namespace Forms;
 
-class Control extends Base {
+abstract class Control extends Base {
   // general type/class of control
   protected $_type = null;
   // html 'name' field
@@ -137,10 +137,12 @@ class Control extends Base {
     }
 	}
 
-	function render($data, $prefix='') {
+  function render($data, $prefix='') {
     $value = $this->getValue($data);
-    $this->render_input($value, $prefix);
-	}
+    return $this->renderWithValue($value, $prefix);
+  }
+
+  abstract function renderWithValue($value, $prefix);
 
   function returnData($value) {
     if ($this->optional && $value === null) {
