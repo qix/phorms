@@ -63,7 +63,11 @@ abstract class Container extends Base {
 
     // Take values from $_POST if set to True
     if ($values === True) {
-      $values = $_POST;
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $values = $_POST;
+      }else{
+        return [];
+      }
     }
 
     // First check this objects test

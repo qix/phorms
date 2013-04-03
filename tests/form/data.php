@@ -2,6 +2,20 @@
 
 class FormDataTest extends \PHPUnit_Framework_TestCase {
 
+  public function testEmptyField() {
+    $form = new \Forms\Form(array(
+      'firstname' => 'Firstname',
+      'surname' => 'Surname',
+    ));
+    $post = array('firstname' => 'George');
+
+    // Assert that surname was dropped
+    $this->assertSame($form->data($post), array(
+      'firstname' => 'George',
+      'surname' => null
+    ));
+  }
+
   public function testDropExtra() {
     $form = new \Forms\Form(array(
       'firstname' => 'Firstname'

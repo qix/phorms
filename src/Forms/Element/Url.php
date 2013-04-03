@@ -2,7 +2,7 @@
 
 namespace Forms;
 
-class Element_Url extends Control_Input {
+class Element_Url extends Element_Input {
   function validate($value) {
     return !!filter_var($value, FILTER_VALIDATE_URL);
   }

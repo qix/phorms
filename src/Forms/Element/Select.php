@@ -2,7 +2,7 @@
 
 namespace Forms;
 
-class Control_Select extends Control {
+class Element_Select extends Control {
   protected $_options = array();
 
 
