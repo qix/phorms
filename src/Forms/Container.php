@@ -129,6 +129,8 @@ abstract class Container extends Base {
       $errors = self::addPrefix($errors, $this->prefix);
     }
 
+    $this->setElementProperties('error', $errors);
+
 		return $errors;
 	}
 
@@ -142,6 +144,14 @@ abstract class Container extends Base {
   function addElement(Element $element) {
     $this->elements[] = $element;
   }
+
+	function setElementProperties($property, $values) {
+    foreach ($values as $name => $value) {
+      if ($element = $this->getElement($name)) {
+        $element->setProperties([$property => $value]);
+      }
+    }
+	}
 
 	function getElement($name) {
 		foreach ($this->elements as $element) {

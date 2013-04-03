@@ -1,0 +1,14 @@
+
+input.error {
+  background-color: #fee;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+label span.required {
+  color: red;
+  font-weight: normal;
+}

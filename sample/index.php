@@ -7,9 +7,12 @@ $form = new Forms\Form(array(
   'firstname' => 'Firstname',
   'surname' => 'Surname',
   'email' => ['Email', 'type' => 'email', 'required' => True],
+  'color' => ['Color', ['green' => 'Green (good)', 'red' => 'Red (bad)']],
   '@fieldset:Action(s)',
   '@submit:Create account',
 ));
+
+print '<html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>';
 
 if ($data = $form->data()) {
   if ($errors = $form->check($data)) {
@@ -22,8 +25,11 @@ if ($data = $form->data()) {
     print '</ul>';
   }else{
     print "Thank you ".htmlentities($data['firstname'])."!";
+    print '<pre>'.htmlentities(var_export($data, True)).'</pre>';
     exit(0);
   }
 }
 
 $form->render($data);
+
+print '</body></html>';

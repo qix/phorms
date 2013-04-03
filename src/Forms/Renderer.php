@@ -16,32 +16,53 @@ class Renderer extends ClassProperties {
 
   function renderControl($control, $data, $prefix='') {
 
+    // Print out a label for the control
+    print '<label'.Html::attributes(array(
+        'for' => $control->id,
+      )).'>'.Html::encode($control->caption).
+      ($control->required ? '<span class="required">*</span>' : '') .
+      '</label>';
+
+
+    if ($control->prefix) {
+      print Html::encode($control->prefix);
+    }
+
     if ($control instanceof Element_Input) {
 
-      // Print out a label for the control
-      print '<label'.Html::attributes(array(
-        'for' => $control->id,
-      )).'>'.Html::encode($control->caption).'</label>';
+      $attributes = $control->getAttributes($data, $prefix);
 
-
-      if ($control->prefix) {
-        print Html::encode($control->prefix);
+      // Add an error class to controls with issues
+      if ($control->error) {
+        $attributes['class'][] = 'error';
       }
 
-      print '<input'.Html::attributes($control->getAttributes($data, $prefix)).'>';
+      print '<input'.Html::attributes($attributes).'>';
 
-      if ($control->suffix) {
-        print Html::encode($control->suffix);
-      }
+    }elseif ($control instanceof Element_Select) {
+    
+      $attributes = $control->getAttributes($data, $prefix);
 
-      print "\n";
-    }elseif ($control instanceof Element_Submit) {
-      print '<input'.Html::attributes(array(
-        'type' => 'submit', 'value' => $control->caption,
-      )).'>'."\n";
+      print '<select'.Html::attributes($attributes) .'>';
+
+      print Element_Select::renderOptions($control->options);
+
+			print '</select>'."\n";
     }else{
       throw new Exception('Unknown control type for renderControl');
     }
+
+    if ($control->suffix) {
+      print Html::encode($control->suffix);
+    }
+
+    print "\n";
+  }
+
+  function renderSubmit($control, $data, $prefix='') {
+    print '<input'.Html::attributes(array(
+      'type' => 'submit', 'value' => $control->caption,
+    )).'>'."\n";
   }
 
   function pushStack(Stack $element, $data=array()) {
@@ -106,6 +127,8 @@ class Renderer extends ClassProperties {
       $this->renderControl($element, $data, $prefix);
     }elseif ($element instanceof Container) {
       $this->renderContainer($element, $data, $prefix);
+    }elseif ($element instanceof Element_Submit) {
+      $this->renderSubmit($element, $data, $prefix);
     }else{
       throw new Exception('Unknown element type to render');
     }
