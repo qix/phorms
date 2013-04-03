@@ -18,6 +18,38 @@ class Form extends Container {
    **/
   function buildControl($control, $key=null) {
 
+    // First check if this is a special type control (@type:caption)
+    if (is_string($key) && substr($key, 0, 1) == '@') {
+
+      // Split and try take off a type and caption
+      $pieces = explode(':', substr($key, 1), 2);
+      $type = array_shift($pieces);
+      $caption = array_shift($pieces);
+
+      if (!is_array($control)) {
+        throw new Exception('Special controls can only have an array of properties');
+      }
+
+      // Fill in the details extracted from the key
+      $key = null;
+      $control['type'] = $type;
+      if ($caption !== null) {
+        $control['caption'] = $caption;
+      }
+
+    }elseif (is_int($key) && is_string($control) && substr($control, 0, 1) == '@') {
+      // Split and try take off a type and caption
+      $pieces = explode(':', substr($control, 1), 2);
+      $type = array_shift($pieces);
+      $caption = array_shift($pieces);
+
+      // Set up a basic control from the two properties
+      $control = array(
+        'type' => $type,
+        'caption' => $caption
+      );
+    }
+
     if (is_string($control)) {
       $control = [$control];
     }elseif ($control instanceof Element) {
@@ -50,13 +82,13 @@ class Form extends Container {
       }
     }
 
-    return $this->controlFactory($control);
+    return $this->elementFactory($control);
   }
 
   /***
-   * Factory for creating controls from a property array
+   * Factory for creating elements from a property array
    **/
-  function controlFactory($properties) {
+  function elementFactory($properties) {
     // Assume control type if it isn't set
     if (!isset($properties['type'])) {
       if (isset($properties['options'])) {
@@ -66,8 +98,8 @@ class Form extends Container {
       }
     }
 
-    // Instaniate a Control_{Type} object 
-    $class = 'Forms\\Control_'.$properties['type'];
+    // Instaniate a Element_{Type} object 
+    $class = 'Forms\\Element_'.$properties['type'];
 
     // Run ucwords with ' ' instead of '_'
     $class = str_replace(' ', '_', ucwords(str_replace('_', ' ', $class)));

@@ -36,10 +36,10 @@ class Renderer extends ClassProperties {
   }
 
   function beginFieldset($element, $data) {
-    print '<fieldset><legend>'.HTML($element->caption).'</legend>';
+    print '<fieldset><legend>'.Html::encode($element->caption).'</legend>';
   }
 
-  function endFieldset($fieldset, $data) {
+  function endFieldset($fieldset) {
     print '</fieldset>';
   }
 

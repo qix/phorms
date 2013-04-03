@@ -2,7 +2,7 @@
 
 namespace Forms;
 
-class Control_Input extends Control {
+class Element_Input extends Control {
 
   // Html field properties
   protected $_input_type = 'input';
