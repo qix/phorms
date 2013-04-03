@@ -9,6 +9,11 @@ class Renderer extends ClassProperties {
     $this->setProperties($properties);
   }
 
+  function renderContainer(Container $element, $data, $prefix='') {
+    // Create a new default renderer for the container
+    $element->render($data, $prefix);
+  }
+
   function renderControl($control, $data, $prefix='') {
     // Print out a label for the control
     print '<label'.Html::attributes(array(
@@ -17,6 +22,8 @@ class Renderer extends ClassProperties {
 
     // Render the actual input
     print $control->render($data, $prefix);
+
+    print "\n";
   }
 
   function pushStack(Stack $element, $data=array()) {
@@ -36,11 +43,11 @@ class Renderer extends ClassProperties {
   }
 
   function beginFieldset($element, $data) {
-    print '<fieldset><legend>'.Html::encode($element->caption).'</legend>';
+    print '<fieldset><legend>'.Html::encode($element->caption).'</legend>'."\n";
   }
 
   function endFieldset($fieldset) {
-    print '</fieldset>';
+    print '</fieldset>'."\n";
   }
 
   function beginAction($element, $data=array()) {
@@ -49,11 +56,11 @@ class Renderer extends ClassProperties {
       'action'=>$element->action,
       'method'=>$element->method,
       'enctype'=>$element->upload ? 'multipart/form-data' : NULL
-    )).'>';
+    )).'>'."\n";
   }
 
   function endAction($action) {
-    print '</form>';
+    print '</form>'."\n";
   }
 
   function endStack($until=NULL) {
@@ -79,6 +86,8 @@ class Renderer extends ClassProperties {
       $this->pushStack($element, $data);
     }elseif ($element instanceof Control) {
       $this->renderControl($element, $data, $prefix);
+    }elseif ($element instanceof Container) {
+      $this->renderContainer($element, $data, $prefix);
     }else{
       throw new Exception('Unknown element type to render');
     }
