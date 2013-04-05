@@ -1,6 +1,6 @@
 <?php
 
-namespace Forms;
+namespace Phorms;
 
 /***
  * An exception class that includes additional context

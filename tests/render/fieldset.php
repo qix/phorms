@@ -3,7 +3,7 @@
 class TestRenderFieldset extends \PHPUnit_Framework_TestCase {
 
   public function testRenderFieldset() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       '@fieldset:Details',
       'firstname' => 'Firstname'
     ));
@@ -19,7 +19,7 @@ class TestRenderFieldset extends \PHPUnit_Framework_TestCase {
   }
 
   public function testRenderTwoFieldsets() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       '@fieldset:Details',
       'firstname' => 'Firstname',
       '@fieldset:Second',
@@ -40,10 +40,10 @@ class TestRenderFieldset extends \PHPUnit_Framework_TestCase {
   }
 
   public function testRenderFieldsetInFieldset() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       '@fieldset:Details',
       'firstname' => 'Firstname',
-      new \Forms\Form(array(
+      new \Phorms\Form(array(
         '@fieldset:Inside',
         'surname' => 'Surname',
       )),

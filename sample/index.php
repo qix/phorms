@@ -1,13 +1,14 @@
 <?php
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
-$form = new Forms\Form(array(
+$form = new Phorms\Form(array(
   '@action',
   '@fieldset:Your details',
   'firstname' => 'Firstname',
   'surname' => 'Surname',
   'email' => ['Email', 'type' => 'email', 'required' => True],
   'color' => ['Color', ['green' => 'Green (good)', 'red' => 'Red (bad)']],
+  'movie' => ['Movies', [116 => 'Braveheart', 327 => 'The Rock', 955 => 'Alien II'], 'multiple' => True],
   '@fieldset:Action(s)',
   '@submit:Create account',
 ));
@@ -26,7 +27,9 @@ if ($data = $form->data()) {
   }else{
     print "Thank you ".htmlentities($data['firstname'])."!";
     print '<pre>'.htmlentities(var_export($data, True)).'</pre>';
-    exit(0);
+
+    // You could exit at this point, or just re-render the form with the data
+    print '<hr/>';
   }
 }
 

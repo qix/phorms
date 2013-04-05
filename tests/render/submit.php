@@ -3,7 +3,7 @@
 class TestRenderSubmit extends \PHPUnit_Framework_TestCase {
 
   public function testRenderAction() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       '@submit:Save changes',
     ));
 

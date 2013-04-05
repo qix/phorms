@@ -3,7 +3,7 @@
 class TestRenderInput extends \PHPUnit_Framework_TestCase {
 
   public function testRenderInput() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       'firstname' => 'Firstname'
     ));
 
@@ -16,7 +16,7 @@ class TestRenderInput extends \PHPUnit_Framework_TestCase {
   }
 
   public function testRenderInputWithValue() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       'firstname' => 'Firstname'
     ));
 
@@ -29,7 +29,7 @@ class TestRenderInput extends \PHPUnit_Framework_TestCase {
   }
 
   public function testRenderInputWithDefault() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       'firstname' => ['Firstname', 'default' => 'Fred'],
     ));
 
@@ -42,7 +42,7 @@ class TestRenderInput extends \PHPUnit_Framework_TestCase {
   }
 
   public function testRenderInputWithDefaultAndValue() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       'firstname' => ['Firstname', 'default' => 'Fred'],
     ));
 

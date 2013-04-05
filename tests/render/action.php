@@ -3,7 +3,7 @@
 class TestRenderAction extends \PHPUnit_Framework_TestCase {
 
   public function testRenderAction() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       '@action:/',
       'firstname' => 'Firstname'
     ));
@@ -19,7 +19,7 @@ class TestRenderAction extends \PHPUnit_Framework_TestCase {
   }
 
   public function testGetMethod() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       '@action:/' => ['method' => 'GET'],
       'firstname' => 'Firstname'
     ));

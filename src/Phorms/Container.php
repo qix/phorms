@@ -1,6 +1,6 @@
 <?php
 
-namespace Forms;
+namespace Phorms;
 
 /***
  * Abstract class for Forms components that contain other components

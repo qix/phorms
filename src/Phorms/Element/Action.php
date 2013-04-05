@@ -1,6 +1,6 @@
 <?php
 
-namespace Forms;
+namespace Phorms;
 
 class Element_Action extends Stack {
   protected $_url = null;

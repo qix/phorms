@@ -1,6 +1,6 @@
 <?php
 
-namespace Forms;
+namespace Phorms;
 
 abstract class Control extends Base {
   // general type/class of control

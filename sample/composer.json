@@ -1,0 +1,8 @@
+{
+  "require": {
+    "qix/phorms": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "3.7.*"
+  }
+}

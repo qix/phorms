@@ -3,7 +3,7 @@
 class FormDataTest extends \PHPUnit_Framework_TestCase {
 
   public function testEmptyField() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       'firstname' => 'Firstname',
       'surname' => 'Surname',
     ));
@@ -17,7 +17,7 @@ class FormDataTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testDropExtra() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       'firstname' => 'Firstname'
     ));
     $post = array(
@@ -33,7 +33,7 @@ class FormDataTest extends \PHPUnit_Framework_TestCase {
 
   public function testCustomFill() {
     // Try create a fill function which swaps firstname and surname
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       'firstname' => 'Firstname'
     ), array(
       'fill' => function(&$data) {

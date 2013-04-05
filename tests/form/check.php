@@ -3,7 +3,7 @@
 class FormCheckTest extends \PHPUnit_Framework_TestCase {
 
   public function testEmpty() {
-    $form = new \Forms\Form(array());
+    $form = new \Phorms\Form(array());
 
     // Check no data provided
     $this->assertSame($form->check([]), []);
@@ -13,7 +13,7 @@ class FormCheckTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testRequired() {
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       'firstname' => 'Firstname',
       'surname' => ['Surname', 'required' => True],
     ));
@@ -45,7 +45,7 @@ class FormCheckTest extends \PHPUnit_Framework_TestCase {
       'surname' => 'Smith',
     );
 
-    $form = new \Forms\Form(array(
+    $form = new \Phorms\Form(array(
       'firstname' => array('Firstname', 'required' => True),
     ), array(
       'check' => function($data) use ($post) {

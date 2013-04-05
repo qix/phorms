@@ -1,6 +1,6 @@
 <?php
 
-namespace Forms;
+namespace Phorms;
 
 class Element_Url extends Element_Input {
   function validate($value) {

@@ -1,5 +1,5 @@
 <?php
-namespace Forms;
+namespace Phorms;
 
 class Form extends Container {
 

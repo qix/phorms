@@ -1,6 +1,6 @@
 <?php
 
-namespace Forms;
+namespace Phorms;
 
 class Element_Select_Option {
   var $value, $caption, $group;
