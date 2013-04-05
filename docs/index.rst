@@ -11,6 +11,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   base
+   element
+
 
 
 Indices and tables
@@ -19,4 +22,9 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Show me the code
+================
+
+.. literalinclude:: sample.php
 
