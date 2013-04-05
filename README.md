@@ -8,6 +8,16 @@ allows definition of complicated forms with a simple syntax.
 There is a focus on server side data validation, as well as clear error 
 messages for any problems encountered.
 
+Installation with Composer
+--------------------------
+
+Declare phorms as a dependency in your projects composer.json file:
+
+{
+  "require": {
+    "qix/phorms": "dev-master"
+  }
+}
 
 Show me the code
 ----------------
