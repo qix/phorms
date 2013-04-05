@@ -147,8 +147,7 @@ class Element_Select extends Control {
     }
 
     if ($value === NULL && !$this->multiple && !$this->optional) {
-      $first = array_first($this->options);
-      $value = $first['key'];
+      $value = $this->options[0]->key;
     }
 
     if ($this->trim) {
