@@ -9,6 +9,7 @@ $form = new Phorms\Form(array(
   'email' => ['Email', 'type' => 'email', 'required' => True],
   'color' => ['Color', ['green' => 'Green (good)', 'red' => 'Red (bad)']],
   'movie' => ['Movies', [116 => 'Braveheart', 327 => 'The Rock', 955 => 'Alien II'], 'multiple' => True],
+  'happy' => ['Happy', 'type' => 'checkbox'],
   '@fieldset:Action(s)',
   '@submit:Create account',
 ));
