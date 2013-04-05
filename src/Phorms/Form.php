@@ -99,7 +99,7 @@ class Form extends Container {
     }
 
     // Instaniate a Element_{Type} object 
-    $class = 'Forms\\Element_'.$properties['type'];
+    $class = 'Phorms\\Element_'.$properties['type'];
 
     // Run ucwords with ' ' instead of '_'
     $class = str_replace(' ', '_', ucwords(str_replace('_', ' ', $class)));

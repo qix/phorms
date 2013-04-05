@@ -1,6 +1,6 @@
 <?php
 
-namespace Forms;
+namespace Phorms;
 
 class Renderer extends ClassProperties {
 	protected $stack = array();

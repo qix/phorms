@@ -1,6 +1,6 @@
 <?php
 
-namespace Forms;
+namespace Phorms;
 
 abstract class Stack extends Base {
   // general type/class of the stack item

@@ -1,5 +1,5 @@
 <?php
 
-namespace Forms;
+namespace Phorms;
 
 class MissingPropertyException extends ContextException {}
