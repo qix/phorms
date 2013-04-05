@@ -43,11 +43,12 @@ class Renderer extends ClassProperties {
     
       $attributes = $control->getAttributes($data, $prefix);
 
-      print '<select'.Html::attributes($attributes) .'>';
+      print '<select'.Html::attributes($attributes) .'>'."\n";
 
-      print Element_Select::renderOptions($control->options);
+      $value = $control->getValue($data);
+      print Element_Select::renderOptions($control->options, $value, $control->multiple);
 
-			print '</select>'."\n";
+      print '</select>';
     }else{
       throw new Exception('Unknown control type for renderControl');
     }

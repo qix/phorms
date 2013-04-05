@@ -63,7 +63,8 @@ class Element_Select extends Control {
       // is this option selected?
       $selected = NULL;
       if ($multiple) {
-        $selected = ($default && in_array($option->value, $default, True));
+        // Do not use type sensitive in_array, due to php int=>str in array keys
+        $selected = ($default && in_array($option->value, $default));
       } else {
         $selected = ($default == $option->value);
       }
@@ -73,7 +74,7 @@ class Element_Select extends Control {
         'selected'=>$selected?'selected':NULL
       )).'>'.Html::encode($option->caption).'</option>'."\n";
     }
-    if ($group) $output .= '</optgroup>'."\n";
+    if ($last_group) $output .= '</optgroup>'."\n";
 
     return $output;
   }
