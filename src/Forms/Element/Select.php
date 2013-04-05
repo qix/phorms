@@ -40,12 +40,10 @@ class Element_Select extends Control {
   static function countOptionLines($options) {
     $last_group = NULL;
     $lines = 0;
-    foreach ($options as $key => $option) {
-      if ($group = ARR($option, 'group')) {
-        if ($group != $last_group) {
-          $last_group = $group;
-          $lines++;
-        }
+    foreach ($options as $option) {
+      if ($option->group && $option->group != $last_group) {
+        $last_group = $option->group;
+        $lines++;
       }
       $lines++;
     }
