@@ -14,15 +14,24 @@ Show me the code
 
 ```php
 $form = new Phorms\Form([
+  // This opens an html <form> element, and a <fieldset> inside it
   '@action',
   '@fieldset:Your request',
+
+  // Input boxes are the default, and are defined simply:
   'firstname' => 'Firstname',
+
+  // Passing an array as the second option allows extra properties:
   'email' => ['Email', 'type'=>'email', 'required'=>True],
+
+  // Some types are automatically detected, such as a select box:
   'topic' => ['Topic', array(
     'topics/barley.txt' => 'Barley',
     'topics/rice.txt' => 'Rice',
     'topics/wheat.txt' => 'Wheat',
   )],
+
+  // Opening another fieldset will automatically close the previous one
   '@fieldset:Action(s)',
   '@submit:Notify me'
 ]);
@@ -44,6 +53,7 @@ if ($data = $form->data()) {
     // Send out an email, the $data['email'] field was required and validated already
     mail($data['email'], 'Hi '.($data['firstname'] ?: 'there'), $body);
 
+    // Choose to exit here, although a 303 redirect is recommended (Post-Redirect-Get pattern)
     print 'We have sent you an email.';
     exit(0);
   }
