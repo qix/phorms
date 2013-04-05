@@ -31,6 +31,13 @@ $form = new Phorms\Form([
     'topics/wheat.txt' => 'Wheat',
   )],
 
+  // Controls can also be provided as objects (simple challenge response)
+  new Phorms\Element_Checkbox(array(
+    'name' => 'human',
+    'caption' => 'Are you human?',
+    'required' => True,
+  )),
+
   // Opening another fieldset will automatically close the previous one
   '@fieldset:Action(s)',
   '@submit:Notify me'
