@@ -13,11 +13,13 @@ Installation with Composer
 
 Declare phorms as a dependency in your projects composer.json file:
 
+```json
 {
   "require": {
     "qix/phorms": "dev-master"
   }
 }
+```
 
 Show me the code
 ----------------
