@@ -13,19 +13,22 @@ Installation with Composer
 
 Declare phorms as a dependency in your projects composer.json file:
 
+```json
 {
   "require": {
     "qix/phorms": "dev-master"
   }
 }
+```
 
 Show me the code
 ----------------
 
 ```php
+Phorms\Csrf::setSecret('mysecret');
+
 $form = new Phorms\Form([
-  // This opens an html <form> element, and a <fieldset> inside it
-  '@action',
+  // Set up a fieldset for the fields
   '@fieldset:Your request',
 
   // Input boxes are the default, and are defined simply:

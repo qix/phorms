@@ -1,8 +1,10 @@
 <?php
 require __DIR__.'/vendor/autoload.php';
 
+session_start();
+Phorms\Csrf::setSecret('mysecret');
+
 $form = new Phorms\Form(array(
-  '@action',
   '@fieldset:Your details',
   'firstname' => 'Firstname',
   'surname' => 'Surname',

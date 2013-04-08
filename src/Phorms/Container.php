@@ -59,11 +59,15 @@ abstract class Container extends Base {
     return $merged;
   }
 
+  function submitted() {
+    return ($_SERVER['REQUEST_METHOD'] == 'POST');
+  }
+
 	function data($values=True) {
 
-    // Take values from $_POST if set to True
+    // Take values from $_POST if this container was submitted
     if ($values === True) {
-      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      if ($this->submitted()) {
         $values = $_POST;
       }else{
         return [];

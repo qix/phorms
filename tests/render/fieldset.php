@@ -2,11 +2,11 @@
 
 class TestRenderFieldset extends \PHPUnit_Framework_TestCase {
 
-  public function testRenderFieldset() {
+  public function testRenderSimple() {
     $form = new \Phorms\Form(array(
       '@fieldset:Details',
       'firstname' => 'Firstname'
-    ));
+    ), ['action' => False]);
 
     ob_start();
     $form->render([]);
@@ -24,7 +24,7 @@ class TestRenderFieldset extends \PHPUnit_Framework_TestCase {
       'firstname' => 'Firstname',
       '@fieldset:Second',
       'surname' => 'Surname',
-    ));
+    ), ['action' => False]);
 
     ob_start();
     $form->render([]);
@@ -46,8 +46,8 @@ class TestRenderFieldset extends \PHPUnit_Framework_TestCase {
       new \Phorms\Form(array(
         '@fieldset:Inside',
         'surname' => 'Surname',
-      )),
-    ));
+      ), ['action' => False]),
+    ), ['action' => False]);
 
     ob_start();
     $form->render([]);

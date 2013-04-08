@@ -3,6 +3,20 @@ namespace Phorms;
 
 class Form extends Container {
 
+  // Fields for action block
+  protected $_action = null;
+  protected $_method = 'POST';
+  protected $_upload = False;
+
+  // Default intent of a submission, for csrf
+  protected $_intent = null;
+
+  // Expiry time of the form, used with _csrf field
+  protected $_expire = 3600;
+
+  /***
+   * On construction build each control
+   **/
   function __construct($controls=array(), $properties=array()) {
     parent::__construct($properties);
 
@@ -11,6 +25,21 @@ class Form extends Container {
 
       $this->addElement($control);
     }
+  }
+
+  /***
+   * Provide default values for some properties
+   **/
+  function __get($var) {
+    $val = parent::__get($var);
+
+    if ($val === null) {
+      if ($var == 'action') {
+        return Request::getRequestUri();
+      }
+    }
+
+    return $val;
   }
 
   /***
@@ -83,6 +112,17 @@ class Form extends Container {
     }
 
     return $this->elementFactory($control);
+  }
+
+  /***
+   * Check if this form was actually submitted (csrf check)
+   **/
+	function submitted() {
+    if (parent::submitted() && isset($_POST['_csrf'])) {
+      return Csrf::check($_POST['_csrf'], $this->intent);
+    }else{
+      return False;
+    }
   }
 
   /***

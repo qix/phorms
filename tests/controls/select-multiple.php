@@ -12,6 +12,8 @@ class TestControlsSelectMultiple extends \PHPUnit_Framework_TestCase {
           'D' => 'Option 4',
           'E' => 'Option 5',
         ), 'multiple' => True),
+      ), array(
+        'action' => False
       )),
     ));
   }

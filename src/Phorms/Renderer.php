@@ -91,16 +91,9 @@ class Renderer extends ClassProperties {
   }
 
   function beginAction($element, $data=array()) {
-    print '<form'.Html::attributes(array(
-      'id' => $element->id,
-      'action'=>$element->url,
-      'method'=>$element->method,
-      'enctype'=>$element->upload ? 'multipart/form-data' : NULL
-    )).'>'."\n";
   }
 
   function endAction($action) {
-    print '</form>'."\n";
   }
 
   function endStack($until=NULL) {
@@ -152,6 +145,23 @@ class Renderer extends ClassProperties {
       }
     }
 
+    // Render the <form> tag if it has an action
+    if ($form->action) {
+      print '<form'.Html::attributes(array(
+        'id' => $form->id,
+        'action'=>$form->action,
+        'method'=>$form->method,
+        'enctype'=>$form->upload ? 'multipart/form-data' : NULL
+      )).'>'."\n";
+
+      // Send a _csrf field with the form
+      print '<input'.Html::attributes(array(
+        'type' => 'hidden',
+        'name' => '_csrf',
+        'value' => Csrf::generate($form->intent, $form->expire)
+      )).'>'."\n";
+    }
+
     // Render each of the elements
     foreach ($form->getElements() as $element) {
       $this->renderElement($element, $data, $prefix);
@@ -159,6 +169,11 @@ class Renderer extends ClassProperties {
 
     // Kill anything remaining on the stack
     $this->endStack(NULL);
+
+    // Close the actual form
+    if ($form->action) {
+      print '</form>'."\n";
+    }
   }
 }
 

@@ -1,8 +1,10 @@
 <?php
 
+session_start();
+Phorms\Csrf::setSecret('mysecret');
+
 $form = new Phorms\Form([
-  // This opens an html <form> element, and a <fieldset> inside it
-  '@action',
+  // Set up a fieldset for the fields
   '@fieldset:Your request',
 
   // Input boxes are the default, and are defined simply:

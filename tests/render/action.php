@@ -2,17 +2,26 @@
 
 class TestRenderAction extends \PHPUnit_Framework_TestCase {
 
-  public function testRenderAction() {
+  private function renderForm($form) {
+    ob_start();
+    $form->render([]);
+    $html = ob_get_clean();
+
+    // Return with csrf stripped out
+    return preg_replace(
+      '/<input type="hidden" name="_csrf" value="[^"]+">/',
+      '<input type="hidden" name="_csrf" value="...">',
+      $html
+    );
+  }
+  public function testRenderSimple() {
     $form = new \Phorms\Form(array(
-      '@action:/',
       'firstname' => 'Firstname'
     ));
 
-    ob_start();
-    $form->render([]);
-
-    $this->assertSame(ob_get_clean(),
-      '<form action="/" method="POST">'."\n".
+    $this->assertSame($this->renderForm($form),
+      '<form action="/phpunit-test" method="POST">'."\n".
+      '<input type="hidden" name="_csrf" value="...">'."\n".
       '<label for="firstname">Firstname</label><input name="firstname" id="firstname" type="input">'."\n".
       '</form>'."\n"
     );
@@ -20,15 +29,14 @@ class TestRenderAction extends \PHPUnit_Framework_TestCase {
 
   public function testGetMethod() {
     $form = new \Phorms\Form(array(
-      '@action:/' => ['method' => 'GET'],
       'firstname' => 'Firstname'
+    ), array(
+      'method' => 'GET',
     ));
 
-    ob_start();
-    $form->render([]);
-
-    $this->assertSame(ob_get_clean(),
-      '<form action="/" method="GET">'."\n".
+    $this->assertSame($this->renderForm($form),
+      '<form action="/phpunit-test" method="GET">'."\n".
+      '<input type="hidden" name="_csrf" value="...">'."\n".
       '<label for="firstname">Firstname</label><input name="firstname" id="firstname" type="input">'."\n".
       '</form>'."\n"
     );
