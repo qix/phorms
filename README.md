@@ -83,6 +83,14 @@ if ($data = $form->data()) {
 $form->render($data);
 ```
 
+Still to be implemented
+-----------------------
+
+Phorms was recently extracted from the [http://www.snapbill.com](SnapBill Codebase) and 
+still requires a heavy amount of work.
+
+It is useable as-is (barely) but needs more development before being useful in other codebases.
+
 Further documentation
 ---------------------
 
